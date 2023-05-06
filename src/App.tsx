@@ -1,14 +1,15 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Footer from './components/Footer';
+import Navbar from './components/Navbar';
 import HomeRoute from './routes/HomeRoute';
 import AddPhotoRoute from './routes/AddPhotoRoute';
 import PhotosRoute from './routes/PhotosRoute';
+import Footer from './components/Footer';
 
 function App() {
   return (
     <div className="App">
       <Router>
-        {/*navbar*/}
+        <Navbar />
         <div className="content">
           <Routes>
             <Route index element={<HomeRoute />} />
