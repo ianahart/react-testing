@@ -10,13 +10,16 @@ interface IMobileProps {
 const Mobile = ({ setIsMobileOpen }: IMobileProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const clickAway = useCallback((e: Event) => {
-    const target = e.target as Element;
-    if (menuRef.current === null) return;
-    if (!menuRef.current.contains(target) && target.role !== 'button') {
-      setIsMobileOpen(false);
-    }
-  }, []);
+  const clickAway = useCallback(
+    (e: Event) => {
+      const target = e.target as Element;
+      if (menuRef.current === null) return;
+      if (!menuRef.current.contains(target) && target.role !== 'button') {
+        setIsMobileOpen(false);
+      }
+    },
+    [setIsMobileOpen]
+  );
 
   useEffect(() => {
     window.addEventListener('click', clickAway);
