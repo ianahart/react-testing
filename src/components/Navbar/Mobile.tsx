@@ -8,7 +8,7 @@ interface IMobileProps {
 }
 
 const Mobile = ({ setIsMobileOpen }: IMobileProps) => {
-  const menuRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLElement>(null);
 
   const clickAway = useCallback(
     (e: Event) => {
@@ -27,12 +27,12 @@ const Mobile = ({ setIsMobileOpen }: IMobileProps) => {
   }, [clickAway]);
 
   return (
-    <div ref={menuRef} className={styles.container}>
+    <nav ref={menuRef} className={styles.container}>
       <div onClick={() => setIsMobileOpen(false)} className={styles.closeIcon}>
         <AiOutlineClose />
       </div>
       <Links />
-    </div>
+    </nav>
   );
 };
 

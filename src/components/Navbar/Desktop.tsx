@@ -9,7 +9,7 @@ interface IDesktopProps {
 
 const Desktop = ({ navbarWidth, setIsMobileOpen }: IDesktopProps) => {
   return (
-    <>
+    <nav>
       {navbarWidth <= 500 ? (
         <div onClick={() => setIsMobileOpen(true)} className={styles.hamburgerIcon}>
           <RxHamburgerMenu role="button" />
@@ -19,7 +19,7 @@ const Desktop = ({ navbarWidth, setIsMobileOpen }: IDesktopProps) => {
           <Links />
         </div>
       )}
-    </>
+    </nav>
   );
 };
 
