@@ -1,17 +1,20 @@
 import Desktop from './Desktop';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Mobile from './Mobile';
 
 const Navbar = () => {
   const [navbarWidth, setNavbarWidth] = useState<number>(0);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
-  const handleResize = (event: Event) => {
-    const target = event.target as Window;
-    setNavbarWidth(target.innerWidth);
+  const handleResize = useCallback(
+    (event: Event) => {
+      const target = event.target as Window;
+      setNavbarWidth(target.innerWidth);
 
-    navbarWidth >= 501 ? setIsMobileOpen(false) : setIsMobileOpen(true);
-  };
+      navbarWidth >= 501 ? setIsMobileOpen(false) : setIsMobileOpen(true);
+    },
+    [navbarWidth]
+  );
 
   useEffect(() => {
     if (navbarWidth === 0) {
