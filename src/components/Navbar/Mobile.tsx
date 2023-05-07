@@ -29,7 +29,7 @@ const Mobile = ({ setIsMobileOpen }: IMobileProps) => {
   return (
     <nav ref={menuRef} className={styles.container}>
       <div onClick={() => setIsMobileOpen(false)} className={styles.closeIcon}>
-        <AiOutlineClose />
+        <AiOutlineClose role="button" />
       </div>
       <Links />
     </nav>
