@@ -1,5 +1,8 @@
 :root {
   --color-gray: #a8a8ad;
+  --color-light-gray: #dadae0;
+  --color-black: #454545;
+  --color-pink: #d421d4;
 }
 
 body {
@@ -12,4 +15,25 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.input {
+  height: 35px;
+  border-radius: 8px;
+  border: none;
+  border: 1px solid;
+  border-color: var(--color-light-gray);
+  box-sizing: border-box;
+}
+
+.button {
+  border: none;
+  border-radius: 8px;
+  height: 35px;
+  transition: all 0.25s ease-out;
+  cursor: pointer;
+}
+
+.button:hover {
+  opacity: 0.8;
 }
