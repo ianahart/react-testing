@@ -19,15 +19,15 @@ const AddPhotoForm = ({ setSearchResults }: IAddPhotoFormProps) => {
       setError('Please provide a term to search for.');
       return;
     }
-    const data = await getPhotos(term);
-    //    const { data, error } = await getPhotos(term);
-    //    if (data) {
-    //      setSearchResults(data.data.results);
-    //    }
-    //
-    //    if (error) {
-    //      setError('Please try a different search term.');
-    //    }
+    const { data, error } = await getPhotos(term);
+    if (data) {
+      setSearchResults(data.data.results);
+      setTerm('');
+    }
+
+    if (error) {
+      setError('Please try a different search term.');
+    }
   };
 
   return (

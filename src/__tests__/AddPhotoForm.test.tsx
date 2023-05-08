@@ -1,4 +1,4 @@
-import { screen, render, fireEvent } from '@testing-library/react';
+import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import AddPhotoForm from '../components/AddPhoto/AddPhotoForm';
 import axios from 'axios';
@@ -71,6 +71,9 @@ test('should return photos', async () => {
   });
 
   expect(axios.get).toHaveBeenCalled();
+  waitFor(() => {
+    expect(input).toHaveValue('');
+  });
 });
 
 test('renders an input, a button, and a heading', () => {

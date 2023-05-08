@@ -1,4 +1,3 @@
-import { http } from './utils';
 import axios from 'axios';
 import { AxiosError } from 'axios';
 import { ISearchPhotoResponse } from '../interfaces';
