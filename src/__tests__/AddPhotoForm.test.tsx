@@ -23,15 +23,17 @@ const mockResponseData = jest.fn((payload) => {
   };
 });
 
-const renderComponent = () => {
-  const mockSetSearchResults = jest.fn();
-  render(<AddPhotoForm setSearchResults={mockSetSearchResults} />);
-
-  return { mockSetSearchResults };
-};
-
 test('should return photos', async () => {
-  const { mockSetSearchResults } = renderComponent();
+  const mockSaveSearchResults = jest.fn();
+  const handleSetTerm = jest.fn();
+  render(
+    <AddPhotoForm
+      handleSetTerm={handleSetTerm}
+      term="water"
+      saveSearchResults={mockSaveSearchResults}
+    />
+  );
+
   const input = screen.getByRole('textbox');
   const form = screen.getByRole('form', { name: /form/i });
 
@@ -77,7 +79,16 @@ test('should return photos', async () => {
 });
 
 test('renders an input, a button, and a heading', () => {
-  renderComponent();
+  const mockSaveSearchResults = jest.fn();
+  const handleSetTerm = jest.fn();
+  render(
+    <AddPhotoForm
+      handleSetTerm={handleSetTerm}
+      term="water"
+      saveSearchResults={mockSaveSearchResults}
+    />
+  );
+
   const heading = screen.getByRole('heading', { name: /search photos/i });
   const input = screen.getByRole('textbox');
   const button = screen.getByRole('button', { name: /search/i });
@@ -88,7 +99,16 @@ test('renders an input, a button, and a heading', () => {
 });
 
 test('shows an error when the user does not type anything', async () => {
-  renderComponent();
+  const mockSaveSearchResults = jest.fn();
+  const handleSetTerm = jest.fn();
+  render(
+    <AddPhotoForm
+      handleSetTerm={handleSetTerm}
+      term=""
+      saveSearchResults={mockSaveSearchResults}
+    />
+  );
+
   const form = screen.getByRole('form', { name: /form/i });
 
   fireEvent.submit(form);

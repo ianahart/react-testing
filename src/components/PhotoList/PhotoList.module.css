@@ -1,0 +1,44 @@
+.container {
+  width: 800px;
+  background-color: #f7f7fb;
+  min-height: 400px;
+  margin-top: 2rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination button {
+  margin: 1rem;
+  border: none;
+  background: transparent;
+  color: var(--color-black);
+  cursor: pointer;
+  transition: all 0.25s ease-out;
+}
+
+.pagination button:hover {
+  opacity: 0.8;
+}
+
+.pagination p {
+  color: var(--color-black);
+}
+
+.heading h1 {
+  color: var(--color-black);
+  text-align: center;
+}
+
+@media (max-width: 800px) {
+  .container {
+    width: 95%;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
