@@ -1,9 +1,10 @@
 .form {
-  border: 1px solid blue;
   padding: 0.5rem;
-  min-height: 500px;
+  min-height: 300px;
   width: 600px;
   text-align: center;
+  background-color: #f7f7fb;
+  border-radius: 8px;
 }
 
 .form h1 {

@@ -5,11 +5,12 @@ import { getPhotos } from '../../utils/api';
 import { ISearchResult } from '../../interfaces';
 
 interface IAddPhotoFormProps {
-  setSearchResults: (results: ISearchResult[]) => void;
+  saveSearchResults: (results: ISearchResult[]) => void;
+  term: string;
+  handleSetTerm: (term: string) => void;
 }
 
-const AddPhotoForm = ({ setSearchResults }: IAddPhotoFormProps) => {
-  const [term, setTerm] = useState('');
+const AddPhotoForm = ({ saveSearchResults, term, handleSetTerm }: IAddPhotoFormProps) => {
   const [error, setError] = useState('');
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -19,10 +20,9 @@ const AddPhotoForm = ({ setSearchResults }: IAddPhotoFormProps) => {
       setError('Please provide a term to search for.');
       return;
     }
-    const { data, error } = await getPhotos(term);
+    const { data, error } = await getPhotos(term, 1);
     if (data) {
-      setSearchResults(data.data.results);
-      setTerm('');
+      saveSearchResults(data.data.results);
     }
 
     if (error) {
@@ -42,7 +42,7 @@ const AddPhotoForm = ({ setSearchResults }: IAddPhotoFormProps) => {
         <input
           className={`input`}
           placeholder="Search Photos..."
-          onChange={(e) => setTerm(e.target.value)}
+          onChange={(e) => handleSetTerm(e.target.value)}
           value={term}
         />
         <button className={`button`} type="submit">
