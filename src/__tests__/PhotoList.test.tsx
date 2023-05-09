@@ -32,10 +32,12 @@ const renderComponent = () => {
     },
   ];
   const mockSaveSearchResults = jest.fn();
+  const mockRemoveSearchResult = jest.fn();
   render(
     <PhotoList
       searchResults={searchResults}
       saveSearchResults={mockSaveSearchResults}
+      removeSearchResult={mockRemoveSearchResult}
       term={term}
     />
   );

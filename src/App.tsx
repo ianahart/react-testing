@@ -4,8 +4,15 @@ import HomeRoute from './routes/HomeRoute';
 import AddPhotoRoute from './routes/AddPhotoRoute';
 import PhotosRoute from './routes/PhotosRoute';
 import Footer from './components/Footer';
+import { useEffect } from 'react';
 
 function App() {
+  useEffect(() => {
+    if (localStorage.getItem('photos') === null) {
+      localStorage.setItem('photos', JSON.stringify([]));
+    }
+  }, []);
+
   return (
     <div className="App">
       <Router>

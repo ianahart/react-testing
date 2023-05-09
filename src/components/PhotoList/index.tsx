@@ -7,11 +7,17 @@ import Photos from './Photos';
 
 interface IPhotoListProps {
   searchResults: ISearchResult[];
+  removeSearchResult: (id: string) => void;
   saveSearchResults: (results: ISearchResult[]) => void;
   term: string;
 }
 
-const PhotoList = ({ searchResults, saveSearchResults, term }: IPhotoListProps) => {
+const PhotoList = ({
+  searchResults,
+  removeSearchResult,
+  saveSearchResults,
+  term,
+}: IPhotoListProps) => {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -47,7 +53,11 @@ const PhotoList = ({ searchResults, saveSearchResults, term }: IPhotoListProps) 
           <h1>Search Results</h1>
         </header>
       </div>
-      <Photos searchResults={searchResults} />
+      <Photos
+        searchResults={searchResults}
+        action="add"
+        removeSearchResult={removeSearchResult}
+      />
       <div className={styles.pagination}>
         {page > 1 && <button onClick={previousPage}>Prev</button>}
         <p aria-label="page number">{page}</p>

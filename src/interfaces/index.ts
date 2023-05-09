@@ -10,8 +10,20 @@ export interface ISearchResult {
   };
 }
 
+export interface IPhoto {
+  id: string;
+  alt_description: string;
+  url: string;
+}
+
 export interface ISearchPhotoResponse {
   results: ISearchResult[];
   total: number;
   total_pages: number;
+}
+
+export interface IContext {
+  photos: IPhoto[];
+  setPhotos: (photo: IPhoto[]) => void;
+  addPhoto: (photo: IPhoto) => void;
 }

@@ -16,6 +16,10 @@ const AddPhotoRoute = () => {
     setTerm(term);
   };
 
+  const removeSearchResult = (id: string) => {
+    setSearchResults(searchResults.filter((sr) => sr.id !== id));
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
@@ -29,6 +33,7 @@ const AddPhotoRoute = () => {
             term={term}
             saveSearchResults={setSearchResults}
             searchResults={searchResults}
+            removeSearchResult={removeSearchResult}
           />
         )}
       </div>

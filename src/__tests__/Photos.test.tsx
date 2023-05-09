@@ -1,7 +1,14 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
+import user from '@testing-library/user-event';
 import Photos from '../components/PhotoList/Photos';
+import { Context } from '../context/context';
+import { IPhoto } from '../interfaces';
 
-const renderComponent = () => {
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
+const returnProps = () => {
   const term = 'water';
   const searchResults = [
     {
@@ -27,13 +34,19 @@ const renderComponent = () => {
       },
     },
   ];
-  const mockSaveSearchResults = jest.fn();
-  render(<Photos searchResults={searchResults} />);
   return { searchResults, term };
 };
 
 test('should render two photos on the screen', () => {
-  renderComponent();
+  const { searchResults, term } = returnProps();
+  const mockRemoveSearchResult = jest.fn();
+  render(
+    <Photos
+      action="add"
+      searchResults={searchResults}
+      removeSearchResult={mockRemoveSearchResult}
+    />
+  );
 
   const photos = screen.getAllByRole('img');
 
@@ -42,4 +55,61 @@ test('should render two photos on the screen', () => {
   });
 
   expect(photos).toHaveLength(2);
+});
+
+test('should add a photo to the users photos', async () => {
+  const { searchResults, term } = returnProps();
+  const photos: IPhoto[] = [];
+  const setPhotos = jest.fn();
+  const addPhoto = jest.fn();
+  const mockRemoveSearchResult = jest.fn();
+
+  render(
+    <Context.Provider value={{ photos, setPhotos, addPhoto }}>
+      <Photos
+        action="add"
+        searchResults={searchResults}
+        removeSearchResult={mockRemoveSearchResult}
+      />
+    </Context.Provider>
+  );
+
+  const myPhotos = screen.getAllByLabelText('photo');
+  const firstPhoto = within(myPhotos[0]).getByAltText('photo 1');
+  await user.click(firstPhoto);
+
+  expect(addPhoto).toHaveBeenCalled();
+  expect(addPhoto).toHaveBeenCalledWith({
+    id: '1',
+    alt_description: 'photo 1',
+    url: 'https://test.com',
+  });
+});
+
+test('should remove search result when it is added as a photo', async () => {
+  const { searchResults, term } = returnProps();
+  const photos: IPhoto[] = [];
+  const setPhotos = jest.fn();
+  const addPhoto = jest.fn();
+  const mockRemoveSearchResult = jest.fn();
+
+  render(
+    <Context.Provider value={{ photos, setPhotos, addPhoto }}>
+      <Photos
+        action="add"
+        searchResults={searchResults}
+        removeSearchResult={mockRemoveSearchResult}
+      />
+    </Context.Provider>
+  );
+
+  const myPhotos = screen.getAllByLabelText('photo');
+  const firstPhoto = within(myPhotos[0]).getByAltText('photo 1');
+  await user.click(firstPhoto);
+
+  expect(mockRemoveSearchResult).toHaveBeenCalled();
+  expect(mockRemoveSearchResult).toHaveBeenCalledWith('1');
+  waitFor(() => {
+    screen.debug();
+  });
 });
