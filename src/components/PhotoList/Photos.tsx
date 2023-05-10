@@ -1,24 +1,28 @@
 import { useContext } from 'react';
 import { Context } from '../../context/context';
-import { IContext, ISearchResult } from '../../interfaces';
+import { IContext, IPhoto } from '../../interfaces';
 import styles from './Photos.module.css';
 
 interface IPhotosProps {
-  searchResults: ISearchResult[];
+  searchResults: IPhoto[];
   action: string;
-  removeSearchResult: (id: string) => void;
+  removeSearchResult?: (id: string) => void;
 }
 
 const Photos = ({ searchResults, action, removeSearchResult }: IPhotosProps) => {
-  const { addPhoto } = useContext(Context) as IContext;
+  const { addPhoto, deletePhoto } = useContext(Context) as IContext;
 
-  const handleOnClick = (searchResult: ISearchResult) => {
+  const handleOnClick = (searchResult: IPhoto) => {
     const { id, urls, alt_description } = searchResult;
+
     if (action === 'add') {
-      addPhoto({ id, alt_description, url: urls.small });
-      removeSearchResult(id);
+      console.log(searchResult);
+      addPhoto({ id, alt_description, urls: { small: urls.small } });
+      if (removeSearchResult !== undefined) {
+        removeSearchResult(id);
+      }
     } else {
-      // deletePhoto(id)
+      deletePhoto(id);
     }
   };
 
@@ -32,7 +36,7 @@ const Photos = ({ searchResults, action, removeSearchResult }: IPhotosProps) => 
             key={searchResult.id}
             className={styles.gridItem}
           >
-            <img src={searchResult.urls.thumb} alt={searchResult.alt_description} />
+            <img src={searchResult.urls.small} alt={searchResult.alt_description} />
           </div>
         );
       })}

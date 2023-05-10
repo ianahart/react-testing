@@ -12,8 +12,14 @@ const ContextProvider = ({ children }: IChildren) => {
   const [photos, setPhotos] = useState<IPhoto[]>(initialPhotoState);
 
   const photoExists = (photo: IPhoto) => {
-    const exists = photos.find((p) => p.url === photo.url);
+    const exists = photos.find((p) => p.urls.small === photo.urls.small);
     return exists ? true : false;
+  };
+
+  const deletePhoto = (id: string) => {
+    const updatedPhotos = photos.filter((v) => v.id !== id);
+    setPhotos(updatedPhotos);
+    localStorage.setItem('photos', JSON.stringify(updatedPhotos));
   };
 
   const addPhoto = (photo: IPhoto) => {
@@ -23,7 +29,7 @@ const ContextProvider = ({ children }: IChildren) => {
   };
 
   return (
-    <Context.Provider value={{ photos, setPhotos, addPhoto }}>
+    <Context.Provider value={{ photos, setPhotos, addPhoto, deletePhoto }}>
       {children}
     </Context.Provider>
   );

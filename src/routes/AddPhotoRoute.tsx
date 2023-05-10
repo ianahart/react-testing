@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import AddPhotoForm from '../components/AddPhoto/AddPhotoForm';
 import styles from './AddPhotoRoute.module.css';
-import { ISearchResult } from '../interfaces';
+import { IPhoto } from '../interfaces';
 import PhotoList from '../components/PhotoList';
 
 const AddPhotoRoute = () => {
-  const [searchResults, setSearchResults] = useState<ISearchResult[]>([]);
+  const [searchResults, setSearchResults] = useState<IPhoto[]>([]);
   const [term, setTerm] = useState('');
 
-  const saveSearchResults = (searchResults: ISearchResult[]) => {
+  const saveSearchResults = (searchResults: IPhoto[]) => {
     setSearchResults(searchResults);
   };
 

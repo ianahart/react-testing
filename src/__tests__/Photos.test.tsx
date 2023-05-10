@@ -27,10 +27,7 @@ const returnProps = () => {
       alt_description: 'photo 2',
       links: { self: 'https://test.com', html: 'https://test.com' },
       urls: {
-        full: 'https://test.com',
-        regular: 'https://test.com',
         small: 'https://test.com',
-        thumb: 'https://test.com',
       },
     },
   ];
@@ -63,9 +60,10 @@ test('should add a photo to the users photos', async () => {
   const setPhotos = jest.fn();
   const addPhoto = jest.fn();
   const mockRemoveSearchResult = jest.fn();
+  const deletePhoto = jest.fn();
 
   render(
-    <Context.Provider value={{ photos, setPhotos, addPhoto }}>
+    <Context.Provider value={{ photos, setPhotos, addPhoto, deletePhoto }}>
       <Photos
         action="add"
         searchResults={searchResults}
@@ -82,7 +80,7 @@ test('should add a photo to the users photos', async () => {
   expect(addPhoto).toHaveBeenCalledWith({
     id: '1',
     alt_description: 'photo 1',
-    url: 'https://test.com',
+    urls: { small: 'https://test.com' },
   });
 });
 
@@ -92,9 +90,10 @@ test('should remove search result when it is added as a photo', async () => {
   const setPhotos = jest.fn();
   const addPhoto = jest.fn();
   const mockRemoveSearchResult = jest.fn();
+  const deletePhoto = jest.fn();
 
   render(
-    <Context.Provider value={{ photos, setPhotos, addPhoto }}>
+    <Context.Provider value={{ photos, setPhotos, addPhoto, deletePhoto }}>
       <Photos
         action="add"
         searchResults={searchResults}
@@ -109,7 +108,30 @@ test('should remove search result when it is added as a photo', async () => {
 
   expect(mockRemoveSearchResult).toHaveBeenCalled();
   expect(mockRemoveSearchResult).toHaveBeenCalledWith('1');
-  waitFor(() => {
-    screen.debug();
-  });
+});
+
+test("should remove photo from user's photo in context", async () => {
+  const { searchResults } = returnProps();
+  const photos: IPhoto[] = [];
+  const setPhotos = jest.fn();
+  const addPhoto = jest.fn();
+  const mockRemoveSearchResult = jest.fn();
+  const deletePhoto = jest.fn();
+
+  render(
+    <Context.Provider value={{ photos, setPhotos, addPhoto, deletePhoto }}>
+      <Photos
+        action="remove"
+        searchResults={searchResults}
+        removeSearchResult={mockRemoveSearchResult}
+      />
+    </Context.Provider>
+  );
+
+  const myPhotos = screen.getAllByLabelText('photo');
+  const firstPhoto = within(myPhotos[0]).getByAltText('photo 1');
+  await user.click(firstPhoto);
+
+  expect(deletePhoto).toHaveBeenCalled();
+  expect(deletePhoto).toHaveBeenCalledWith('1');
 });

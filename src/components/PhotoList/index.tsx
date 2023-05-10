@@ -1,14 +1,14 @@
 import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
-import { ISearchResult } from '../../interfaces';
+import { IPhoto } from '../../interfaces';
 import { getPhotos } from '../../utils/api';
 import styles from './PhotoList.module.css';
 import Photos from './Photos';
 
 interface IPhotoListProps {
-  searchResults: ISearchResult[];
+  searchResults: IPhoto[];
   removeSearchResult: (id: string) => void;
-  saveSearchResults: (results: ISearchResult[]) => void;
+  saveSearchResults: (results: IPhoto[]) => void;
   term: string;
 }
 

@@ -2,10 +2,10 @@ import { FormEvent, useState } from 'react';
 import styles from './AddPhotoForm.module.css';
 import { getPhotos } from '../../utils/api';
 
-import { ISearchResult } from '../../interfaces';
+import { IPhoto } from '../../interfaces';
 
 interface IAddPhotoFormProps {
-  saveSearchResults: (results: ISearchResult[]) => void;
+  saveSearchResults: (results: IPhoto[]) => void;
   term: string;
   handleSetTerm: (term: string) => void;
 }
