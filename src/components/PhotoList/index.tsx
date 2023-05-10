@@ -53,11 +53,7 @@ const PhotoList = ({
           <h1>Search Results</h1>
         </header>
       </div>
-      <Photos
-        searchResults={searchResults}
-        action="add"
-        removeSearchResult={removeSearchResult}
-      />
+      <Photos data={searchResults} action="add" removeSearchResult={removeSearchResult} />
       <div className={styles.pagination}>
         {page > 1 && <button onClick={previousPage}>Prev</button>}
         <p aria-label="page number">{page}</p>

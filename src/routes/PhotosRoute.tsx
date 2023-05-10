@@ -8,7 +8,10 @@ const PhotosRoute = () => {
   const { photos } = useContext(Context) as IContext;
   return (
     <div className={styles.container}>
-      <Photos removeSearchResult={undefined} searchResults={photos} action="remove" />
+      <header className={styles.header}>
+        <h1>Your Photos</h1>
+      </header>
+      <Photos removeSearchResult={undefined} data={photos} action="remove" />
     </div>
   );
 };

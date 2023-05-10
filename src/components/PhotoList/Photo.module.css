@@ -1,0 +1,21 @@
+.gridItem {
+  justify-self: center;
+  width: 150px;
+  height: 200px;
+  cursor: pointer;
+  margin: 2rem;
+}
+
+.gridItem img {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.gridItem p {
+  color: var(--color-black);
+  margin: 0.5rem;
+  background-color: #eeeef8;
+  border-radius: 8px;
+  padding: 0.25rem;
+}
