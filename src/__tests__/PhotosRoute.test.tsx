@@ -32,7 +32,7 @@ describe('PhotosRoute', () => {
     const nextButton = screen.getByRole('button', { name: /next/i });
 
     expect(mockStore.turnPage).toHaveBeenCalled();
-    expect(mockStore.turnPage).toHaveBeenCalledWith('next');
+    expect(mockStore.turnPage).toHaveBeenCalledWith('next', true);
     await user.click(nextButton);
 
     mockStore.page = mockStore.page + 1;
