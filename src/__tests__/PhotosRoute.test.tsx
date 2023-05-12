@@ -57,7 +57,7 @@ const renderComponent = () => {
       <PhotosRoute />
     </Context.Provider>
   );
-  return { turnPage, rerender, slice, page, curPhotoIndex };
+  return { photos, turnPage, rerender, slice, page, curPhotoIndex };
 };
 
 describe('PhotosRoute', () => {
@@ -75,7 +75,7 @@ describe('PhotosRoute', () => {
     expect(photoElements).toHaveLength(slice.length);
   });
   test('should show prev button when next button is clicked', async () => {
-    let { rerender, turnPage, slice, page } = renderComponent();
+    let { photos, rerender, turnPage, slice, page } = renderComponent();
     const nextButton = screen.getByRole('button', { name: /next/i });
 
     expect(turnPage).toHaveBeenCalled();
@@ -86,6 +86,7 @@ describe('PhotosRoute', () => {
     rerender(
       <Context.Provider
         value={{
+          photos,
           turnPage,
           page,
           slice,
@@ -102,7 +103,7 @@ describe('PhotosRoute', () => {
   });
 
   test('should show next slice of photos when next button is clicked', async () => {
-    let { rerender, turnPage, slice, page } = renderComponent();
+    let { photos, rerender, turnPage, slice, page } = renderComponent();
     page = 2;
     slice = [
       {
@@ -117,6 +118,7 @@ describe('PhotosRoute', () => {
     rerender(
       <Context.Provider
         value={{
+          photos,
           turnPage,
           page,
           slice,
