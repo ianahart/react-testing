@@ -10,6 +10,33 @@ interface IChildren {
 
 const ContextProvider = ({ children }: IChildren) => {
   const [photos, setPhotos] = useState<IPhoto[]>(initialPhotoState);
+  const [slice, setSlice] = useState<IPhoto[]>([]);
+  const [curPhotoIndex, setCurPhotoIndex] = useState(0);
+  const [page, setPage] = useState(0);
+
+  const turnPage = (action: string) => {
+    action === 'next' ? nextPage() : prevPage();
+  };
+
+  const nextPage = () => {
+    const PAGE_SIZE = 5;
+    setPage((prevState) => prevState + 1);
+    const curSlice = photos.slice(curPhotoIndex, PAGE_SIZE + curPhotoIndex);
+    setSlice(curSlice);
+    setCurPhotoIndex((prevState) => prevState + PAGE_SIZE);
+  };
+
+  const prevPage = () => {
+    const PAGE_SIZE = 5;
+    setPage((prevState) => prevState - 1);
+    const curSlice = photos.slice(
+      curPhotoIndex - PAGE_SIZE * 2,
+      curPhotoIndex - PAGE_SIZE
+    );
+
+    setSlice(curSlice);
+    setCurPhotoIndex((prevState) => prevState - PAGE_SIZE);
+  };
 
   const photoExists = (photo: IPhoto) => {
     const exists = photos.find((p) => p.urls.small === photo.urls.small);
@@ -29,7 +56,18 @@ const ContextProvider = ({ children }: IChildren) => {
   };
 
   return (
-    <Context.Provider value={{ photos, setPhotos, addPhoto, deletePhoto }}>
+    <Context.Provider
+      value={{
+        photos,
+        setPhotos,
+        addPhoto,
+        deletePhoto,
+        turnPage,
+        page,
+        slice,
+        curPhotoIndex,
+      }}
+    >
       {children}
     </Context.Provider>
   );

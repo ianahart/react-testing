@@ -8,3 +8,26 @@
   text-align: center;
   color: var(--color-black);
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
+}
+
+.pagination button {
+  margin: 1rem;
+  border: none;
+  background: transparent;
+  color: var(--color-black);
+  cursor: pointer;
+  transition: all 0.25s ease-out;
+}
+
+.pagination button:hover {
+  opacity: 0.8;
+}
+
+.pagination p {
+  color: var(--color-black);
+}

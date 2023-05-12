@@ -14,7 +14,11 @@ export interface ISearchPhotoResponse {
 
 export interface IContext {
   photos: IPhoto[];
+  slice: IPhoto[];
+  curPhotoIndex: number;
   setPhotos: (photo: IPhoto[]) => void;
   addPhoto: (photo: IPhoto) => void;
   deletePhoto: (id: string) => void;
+  turnPage: (action: string) => void;
+  page: number;
 }

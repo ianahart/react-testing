@@ -40,7 +40,7 @@ test('should render two photos on the screen', () => {
   render(
     <Photos
       action="add"
-      searchResults={searchResults}
+      data={searchResults}
       removeSearchResult={mockRemoveSearchResult}
     />
   );
@@ -57,16 +57,31 @@ test('should render two photos on the screen', () => {
 test('should add a photo to the users photos', async () => {
   const { searchResults, term } = returnProps();
   const photos: IPhoto[] = [];
+  const slice: IPhoto[] = [];
+  const curPhotoIndex = 0;
   const setPhotos = jest.fn();
   const addPhoto = jest.fn();
   const mockRemoveSearchResult = jest.fn();
   const deletePhoto = jest.fn();
+  const turnPage = jest.fn();
+  const page = 1;
 
   render(
-    <Context.Provider value={{ photos, setPhotos, addPhoto, deletePhoto }}>
+    <Context.Provider
+      value={{
+        photos,
+        setPhotos,
+        addPhoto,
+        deletePhoto,
+        turnPage,
+        page,
+        slice,
+        curPhotoIndex,
+      }}
+    >
       <Photos
         action="add"
-        searchResults={searchResults}
+        data={searchResults}
         removeSearchResult={mockRemoveSearchResult}
       />
     </Context.Provider>
@@ -87,16 +102,31 @@ test('should add a photo to the users photos', async () => {
 test('should remove search result when it is added as a photo', async () => {
   const { searchResults, term } = returnProps();
   const photos: IPhoto[] = [];
+  const slice: IPhoto[] = [];
+  const curPhotoIndex = 0;
   const setPhotos = jest.fn();
   const addPhoto = jest.fn();
   const mockRemoveSearchResult = jest.fn();
   const deletePhoto = jest.fn();
+  const turnPage = jest.fn();
+  const page = 1;
 
   render(
-    <Context.Provider value={{ photos, setPhotos, addPhoto, deletePhoto }}>
+    <Context.Provider
+      value={{
+        photos,
+        setPhotos,
+        addPhoto,
+        deletePhoto,
+        turnPage,
+        page,
+        slice,
+        curPhotoIndex,
+      }}
+    >
       <Photos
         action="add"
-        searchResults={searchResults}
+        data={searchResults}
         removeSearchResult={mockRemoveSearchResult}
       />
     </Context.Provider>
@@ -113,16 +143,31 @@ test('should remove search result when it is added as a photo', async () => {
 test("should remove photo from user's photo in context", async () => {
   const { searchResults } = returnProps();
   const photos: IPhoto[] = [];
+  const slice: IPhoto[] = [];
+  const curPhotoIndex = 0;
   const setPhotos = jest.fn();
   const addPhoto = jest.fn();
   const mockRemoveSearchResult = jest.fn();
   const deletePhoto = jest.fn();
+  const turnPage = jest.fn();
+  const page = 1;
 
   render(
-    <Context.Provider value={{ photos, setPhotos, addPhoto, deletePhoto }}>
+    <Context.Provider
+      value={{
+        photos,
+        setPhotos,
+        addPhoto,
+        deletePhoto,
+        turnPage,
+        page,
+        slice,
+        curPhotoIndex,
+      }}
+    >
       <Photos
         action="remove"
-        searchResults={searchResults}
+        data={searchResults}
         removeSearchResult={mockRemoveSearchResult}
       />
     </Context.Provider>

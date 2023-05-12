@@ -7,6 +7,4 @@ test('it renders a footer at the bottom of the page', () => {
   const footer = screen.getByText(new RegExp('ian hart', 'i'));
 
   expect(footer).toBeInTheDocument();
-
-  screen.logTestingPlaygroundURL();
 });
