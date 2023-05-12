@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import Photos from '../components/PhotoList/Photos';
 import { Context } from '../context/context';
 import { IContext } from '../interfaces';
@@ -6,12 +6,19 @@ import { useEffectOnce } from '../utils/UseEffectOnce';
 import styles from './PhotosRoute.module.css';
 
 const PhotosRoute = () => {
-  const { curPhotoIndex, photos, turnPage, page, slice } = useContext(
-    Context
-  ) as IContext;
+  const {
+    curPhotoIndex,
+    setCurPhotoIndex,
+    setSlice,
+    setPage,
+    photos,
+    turnPage,
+    page,
+    slice,
+  } = useContext(Context) as IContext;
 
   useEffectOnce(() => {
-    turnPage('next');
+    turnPage('next', true);
   });
 
   return (

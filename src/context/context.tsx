@@ -14,16 +14,23 @@ const ContextProvider = ({ children }: IChildren) => {
   const [curPhotoIndex, setCurPhotoIndex] = useState(0);
   const [page, setPage] = useState(0);
 
-  const turnPage = (action: string) => {
-    action === 'next' ? nextPage() : prevPage();
+  const turnPage = (action: string, initial?: boolean) => {
+    action === 'next' ? nextPage(initial) : prevPage();
   };
 
-  const nextPage = () => {
+  const nextPage = (initial?: boolean) => {
+    let curSlice;
     const PAGE_SIZE = 5;
-    setPage((prevState) => prevState + 1);
-    const curSlice = photos.slice(curPhotoIndex, PAGE_SIZE + curPhotoIndex);
+    if (initial) {
+      setPage(1);
+      curSlice = photos.slice(0, PAGE_SIZE);
+      setCurPhotoIndex(PAGE_SIZE);
+    } else {
+      setPage((prevState) => prevState + 1);
+      curSlice = photos.slice(curPhotoIndex, PAGE_SIZE + curPhotoIndex);
+      setCurPhotoIndex((prevState) => prevState + PAGE_SIZE);
+    }
     setSlice(curSlice);
-    setCurPhotoIndex((prevState) => prevState + PAGE_SIZE);
   };
 
   const prevPage = () => {
@@ -68,6 +75,9 @@ const ContextProvider = ({ children }: IChildren) => {
         page,
         slice,
         curPhotoIndex,
+        setSlice,
+        setPage,
+        setCurPhotoIndex,
       }}
     >
       {children}

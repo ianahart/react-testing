@@ -28,9 +28,12 @@ export const mockStore: IContext = {
   photos: [],
   slice: mockSlice,
   curPhotoIndex: 0,
+  setCurPhotoIndex: jest.fn(),
   setPhotos: jest.fn(),
   addPhoto: jest.fn(),
   deletePhoto: jest.fn(),
   turnPage: jest.fn(),
   page: 1,
+  setPage: jest.fn(),
+  setSlice: jest.fn(),
 };
