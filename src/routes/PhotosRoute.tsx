@@ -6,7 +6,9 @@ import { useEffectOnce } from '../utils/UseEffectOnce';
 import styles from './PhotosRoute.module.css';
 
 const PhotosRoute = () => {
-  const { photos, turnPage, page, slice } = useContext(Context) as IContext;
+  const { curPhotoIndex, photos, turnPage, page, slice } = useContext(
+    Context
+  ) as IContext;
 
   useEffectOnce(() => {
     turnPage('next');
@@ -21,7 +23,9 @@ const PhotosRoute = () => {
       <div className={styles.pagination}>
         {page > 1 && <button onClick={() => turnPage('prev')}>Prev</button>}
         <p aria-label="page number">{page}</p>
-        <button onClick={() => turnPage('next')}>Next</button>
+        {curPhotoIndex <= photos.length && (
+          <button onClick={() => turnPage('next')}>Next</button>
+        )}
       </div>
     </div>
   );

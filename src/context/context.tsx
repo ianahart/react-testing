@@ -45,6 +45,8 @@ const ContextProvider = ({ children }: IChildren) => {
 
   const deletePhoto = (id: string) => {
     const updatedPhotos = photos.filter((v) => v.id !== id);
+    const updatedSlice = slice.filter((v) => v.id !== id);
+    setSlice(updatedSlice);
     setPhotos(updatedPhotos);
     localStorage.setItem('photos', JSON.stringify(updatedPhotos));
   };
