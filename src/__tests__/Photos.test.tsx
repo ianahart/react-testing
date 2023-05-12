@@ -34,149 +34,151 @@ const returnProps = () => {
   return { searchResults, term };
 };
 
-test('should render two photos on the screen', () => {
-  const { searchResults, term } = returnProps();
-  const mockRemoveSearchResult = jest.fn();
-  render(
-    <Photos
-      action="add"
-      data={searchResults}
-      removeSearchResult={mockRemoveSearchResult}
-    />
-  );
-
-  const photos = screen.getAllByRole('img');
-
-  photos.forEach((photo, index) => {
-    expect(photo).toHaveAttribute('alt', `photo ${index + 1}`);
-  });
-
-  expect(photos).toHaveLength(2);
-});
-
-test('should add a photo to the users photos', async () => {
-  const { searchResults, term } = returnProps();
-  const photos: IPhoto[] = [];
-  const slice: IPhoto[] = [];
-  const curPhotoIndex = 0;
-  const setPhotos = jest.fn();
-  const addPhoto = jest.fn();
-  const mockRemoveSearchResult = jest.fn();
-  const deletePhoto = jest.fn();
-  const turnPage = jest.fn();
-  const page = 1;
-
-  render(
-    <Context.Provider
-      value={{
-        photos,
-        setPhotos,
-        addPhoto,
-        deletePhoto,
-        turnPage,
-        page,
-        slice,
-        curPhotoIndex,
-      }}
-    >
+describe('Photos', () => {
+  test('should render two photos on the screen', () => {
+    const { searchResults, term } = returnProps();
+    const mockRemoveSearchResult = jest.fn();
+    render(
       <Photos
         action="add"
         data={searchResults}
         removeSearchResult={mockRemoveSearchResult}
       />
-    </Context.Provider>
-  );
+    );
 
-  const myPhotos = screen.getAllByLabelText('photo');
-  const firstPhoto = within(myPhotos[0]).getByAltText('photo 1');
-  await user.click(firstPhoto);
+    const photos = screen.getAllByRole('img');
 
-  expect(addPhoto).toHaveBeenCalled();
-  expect(addPhoto).toHaveBeenCalledWith({
-    id: '1',
-    alt_description: 'photo 1',
-    urls: { small: 'https://test.com' },
+    photos.forEach((photo, index) => {
+      expect(photo).toHaveAttribute('alt', `photo ${index + 1}`);
+    });
+
+    expect(photos).toHaveLength(2);
   });
-});
 
-test('should remove search result when it is added as a photo', async () => {
-  const { searchResults, term } = returnProps();
-  const photos: IPhoto[] = [];
-  const slice: IPhoto[] = [];
-  const curPhotoIndex = 0;
-  const setPhotos = jest.fn();
-  const addPhoto = jest.fn();
-  const mockRemoveSearchResult = jest.fn();
-  const deletePhoto = jest.fn();
-  const turnPage = jest.fn();
-  const page = 1;
+  test('should add a photo to the users photos', async () => {
+    const { searchResults, term } = returnProps();
+    const photos: IPhoto[] = [];
+    const slice: IPhoto[] = [];
+    const curPhotoIndex = 0;
+    const setPhotos = jest.fn();
+    const addPhoto = jest.fn();
+    const mockRemoveSearchResult = jest.fn();
+    const deletePhoto = jest.fn();
+    const turnPage = jest.fn();
+    const page = 1;
 
-  render(
-    <Context.Provider
-      value={{
-        photos,
-        setPhotos,
-        addPhoto,
-        deletePhoto,
-        turnPage,
-        page,
-        slice,
-        curPhotoIndex,
-      }}
-    >
-      <Photos
-        action="add"
-        data={searchResults}
-        removeSearchResult={mockRemoveSearchResult}
-      />
-    </Context.Provider>
-  );
+    render(
+      <Context.Provider
+        value={{
+          photos,
+          setPhotos,
+          addPhoto,
+          deletePhoto,
+          turnPage,
+          page,
+          slice,
+          curPhotoIndex,
+        }}
+      >
+        <Photos
+          action="add"
+          data={searchResults}
+          removeSearchResult={mockRemoveSearchResult}
+        />
+      </Context.Provider>
+    );
 
-  const myPhotos = screen.getAllByLabelText('photo');
-  const firstPhoto = within(myPhotos[0]).getByAltText('photo 1');
-  await user.click(firstPhoto);
+    const myPhotos = screen.getAllByLabelText('photo');
+    const firstPhoto = within(myPhotos[0]).getByAltText('photo 1');
+    await user.click(firstPhoto);
 
-  expect(mockRemoveSearchResult).toHaveBeenCalled();
-  expect(mockRemoveSearchResult).toHaveBeenCalledWith('1');
-});
+    expect(addPhoto).toHaveBeenCalled();
+    expect(addPhoto).toHaveBeenCalledWith({
+      id: '1',
+      alt_description: 'photo 1',
+      urls: { small: 'https://test.com' },
+    });
+  });
 
-test("should remove photo from user's photo in context", async () => {
-  const { searchResults } = returnProps();
-  const photos: IPhoto[] = [];
-  const slice: IPhoto[] = [];
-  const curPhotoIndex = 0;
-  const setPhotos = jest.fn();
-  const addPhoto = jest.fn();
-  const mockRemoveSearchResult = jest.fn();
-  const deletePhoto = jest.fn();
-  const turnPage = jest.fn();
-  const page = 1;
+  test('should remove search result when it is added as a photo', async () => {
+    const { searchResults, term } = returnProps();
+    const photos: IPhoto[] = [];
+    const slice: IPhoto[] = [];
+    const curPhotoIndex = 0;
+    const setPhotos = jest.fn();
+    const addPhoto = jest.fn();
+    const mockRemoveSearchResult = jest.fn();
+    const deletePhoto = jest.fn();
+    const turnPage = jest.fn();
+    const page = 1;
 
-  render(
-    <Context.Provider
-      value={{
-        photos,
-        setPhotos,
-        addPhoto,
-        deletePhoto,
-        turnPage,
-        page,
-        slice,
-        curPhotoIndex,
-      }}
-    >
-      <Photos
-        action="remove"
-        data={searchResults}
-        removeSearchResult={mockRemoveSearchResult}
-      />
-    </Context.Provider>
-  );
+    render(
+      <Context.Provider
+        value={{
+          photos,
+          setPhotos,
+          addPhoto,
+          deletePhoto,
+          turnPage,
+          page,
+          slice,
+          curPhotoIndex,
+        }}
+      >
+        <Photos
+          action="add"
+          data={searchResults}
+          removeSearchResult={mockRemoveSearchResult}
+        />
+      </Context.Provider>
+    );
 
-  const myPhotos = screen.getAllByLabelText('photo');
-  const firstPhoto = within(myPhotos[0]).getByAltText('photo 1');
-  await user.click(firstPhoto);
+    const myPhotos = screen.getAllByLabelText('photo');
+    const firstPhoto = within(myPhotos[0]).getByAltText('photo 1');
+    await user.click(firstPhoto);
 
-  expect(deletePhoto).toHaveBeenCalled();
-  expect(deletePhoto).toHaveBeenCalledWith('1');
+    expect(mockRemoveSearchResult).toHaveBeenCalled();
+    expect(mockRemoveSearchResult).toHaveBeenCalledWith('1');
+  });
+
+  test("should remove photo from user's photo in context", async () => {
+    const { searchResults } = returnProps();
+    const photos: IPhoto[] = [];
+    const slice: IPhoto[] = [];
+    const curPhotoIndex = 0;
+    const setPhotos = jest.fn();
+    const addPhoto = jest.fn();
+    const mockRemoveSearchResult = jest.fn();
+    const deletePhoto = jest.fn();
+    const turnPage = jest.fn();
+    const page = 1;
+
+    render(
+      <Context.Provider
+        value={{
+          photos,
+          setPhotos,
+          addPhoto,
+          deletePhoto,
+          turnPage,
+          page,
+          slice,
+          curPhotoIndex,
+        }}
+      >
+        <Photos
+          action="remove"
+          data={searchResults}
+          removeSearchResult={mockRemoveSearchResult}
+        />
+      </Context.Provider>
+    );
+
+    const myPhotos = screen.getAllByLabelText('photo');
+    const firstPhoto = within(myPhotos[0]).getByAltText('photo 1');
+    await user.click(firstPhoto);
+
+    expect(deletePhoto).toHaveBeenCalled();
+    expect(deletePhoto).toHaveBeenCalledWith('1');
+  });
 });

@@ -14,22 +14,24 @@ const renderComponent = () => {
   return { mockIsMobileOpen };
 };
 
-test('clicking on close icon sets mobile menu to false', async () => {
-  const { mockIsMobileOpen } = renderComponent();
+describe('Mobile', () => {
+  test('clicking on close icon sets mobile menu to false', async () => {
+    const { mockIsMobileOpen } = renderComponent();
 
-  const closeIconButton = screen.getByRole('button');
+    const closeIconButton = screen.getByRole('button');
 
-  await user.click(closeIconButton);
+    await user.click(closeIconButton);
 
-  expect(mockIsMobileOpen).toHaveBeenCalled();
-  expect(mockIsMobileOpen).toHaveBeenCalledWith(false);
-});
+    expect(mockIsMobileOpen).toHaveBeenCalled();
+    expect(mockIsMobileOpen).toHaveBeenCalledWith(false);
+  });
 
-test('clicking outside of mobile menu closes menu', async () => {
-  const { mockIsMobileOpen } = renderComponent();
+  test('clicking outside of mobile menu closes menu', async () => {
+    const { mockIsMobileOpen } = renderComponent();
 
-  await user.click(document.body);
+    await user.click(document.body);
 
-  expect(mockIsMobileOpen).toHaveBeenCalled();
-  expect(mockIsMobileOpen).toHaveBeenCalledWith(false);
+    expect(mockIsMobileOpen).toHaveBeenCalled();
+    expect(mockIsMobileOpen).toHaveBeenCalledWith(false);
+  });
 });
