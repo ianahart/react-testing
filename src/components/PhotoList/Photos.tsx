@@ -29,7 +29,14 @@ const Photos = ({ data, action, removeSearchResult }: IPhotosProps) => {
   return (
     <div aria-label="photos" className={styles.grid}>
       {data.map((item) => {
-        return <Photo key={item.id} item={item} handleOnClick={handleOnClick} />;
+        return (
+          <Photo
+            key={item.id}
+            item={item}
+            action={action}
+            handleOnClick={handleOnClick}
+          />
+        );
       })}
     </div>
   );
