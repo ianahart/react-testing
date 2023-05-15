@@ -23,9 +23,9 @@ const Photo = ({ item, action, handleOnClick }: IPhotoProps) => {
       >
         <img src={urls.small} alt={alt_description} />
         {alt_description ? <p>{alt_description}</p> : <p>Description not provided</p>}
-        {action === 'remove' && mouseOver && (
+        {mouseOver && (
           <div className={styles.popOver}>
-            <p>Click to remove</p>
+            <p>{action === 'remove' ? 'Click to remove' : 'Click to add'}</p>
           </div>
         )}
       </div>

@@ -1,0 +1,53 @@
+.container {
+  min-height: 500px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.paginationButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.paginationButton {
+  cursor: pointer;
+  margin: 1rem;
+}
+
+.paginationButton svg {
+  color: var(--color-pink);
+  font-size: 3rem;
+  background-color: transparent;
+  filter: drop-shadow(3px 1px 1px rgb(0 0 0 / 0.4));
+}
+
+.carousel {
+  padding: 0.25rem;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.paginationDot {
+  margin: 0.5rem;
+}
+
+.activePaginationDot {
+  color: var(--color-pink);
+  font-size: 1.5rem;
+}
+
+@media (max-width: 770px) {
+  .carousel {
+    flex-wrap: wrap;
+  }
+}

@@ -19,7 +19,7 @@ export interface IContext {
   setPhotos: (photo: IPhoto[]) => void;
   addPhoto: (photo: IPhoto) => void;
   deletePhoto: (id: string) => void;
-  turnPage: (action: string, initial?: boolean) => void;
+  turnPage: (action: string, pageSize: number, initial?: boolean) => void;
   setPage: (page: number) => void;
   setCurPhotoIndex: (curIndex: number) => void;
   setSlice: (slice: IPhoto[]) => void;

@@ -11,7 +11,7 @@ const PhotosRoute = () => {
   ) as IContext;
 
   useEffectOnce(() => {
-    turnPage('next', true);
+    turnPage('next', 5, true);
   });
 
   return (
@@ -21,10 +21,10 @@ const PhotosRoute = () => {
       </header>
       <Photos removeSearchResult={undefined} data={slice} action="remove" />
       <div className={styles.pagination}>
-        {page > 1 && <button onClick={() => turnPage('prev')}>Prev</button>}
+        {page > 1 && <button onClick={() => turnPage('prev', 5)}>Prev</button>}
         <p aria-label="page number">{page}</p>
         {curPhotoIndex <= photos.length && (
-          <button onClick={() => turnPage('next')}>Next</button>
+          <button onClick={() => turnPage('next', 5)}>Next</button>
         )}
       </div>
     </div>

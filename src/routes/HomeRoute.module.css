@@ -1,3 +1,18 @@
 .homeRouteContainer {
   min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.carouselContainer {
+  border: 1px solid;
+  border-color: var(--color-light-gray);
+  border-radius: 8px;
+  width: 900px;
+  margin: 5rem auto 2rem auto;
+}
+
+@media (max-width: 910px) {
+  .carouselContainer {
+    width: 95%;
+  }
 }

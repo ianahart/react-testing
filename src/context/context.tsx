@@ -1,4 +1,4 @@
-import { useState, createContext } from 'react';
+import { useState, createContext, useEffect } from 'react';
 import { IContext, IPhoto } from '../interfaces';
 import { initialPhotoState } from '../initialState';
 
@@ -14,35 +14,40 @@ const ContextProvider = ({ children }: IChildren) => {
   const [curPhotoIndex, setCurPhotoIndex] = useState(0);
   const [page, setPage] = useState(0);
 
-  const turnPage = (action: string, initial?: boolean) => {
-    action === 'next' ? nextPage(initial) : prevPage();
+  const turnPage = (action: string, pageSize: number, initial?: boolean) => {
+    action === 'next' ? nextPage(pageSize, initial) : prevPage(pageSize);
   };
 
-  const nextPage = (initial?: boolean) => {
+  const nextPage = (pageSize: number, initial?: boolean) => {
     let curSlice;
-    const PAGE_SIZE = 5;
-    if (initial) {
+    if (initial || curPhotoIndex >= photos.length) {
       setPage(1);
-      curSlice = photos.slice(0, PAGE_SIZE);
-      setCurPhotoIndex(PAGE_SIZE);
+      curSlice = photos.slice(0, pageSize);
+      setCurPhotoIndex(pageSize);
     } else {
       setPage((prevState) => prevState + 1);
-      curSlice = photos.slice(curPhotoIndex, PAGE_SIZE + curPhotoIndex);
-      setCurPhotoIndex((prevState) => prevState + PAGE_SIZE);
+      curSlice = photos.slice(curPhotoIndex, pageSize + curPhotoIndex);
+      setCurPhotoIndex((prevState) => prevState + pageSize);
     }
     setSlice(curSlice);
   };
 
-  const prevPage = () => {
-    const PAGE_SIZE = 5;
-    setPage((prevState) => prevState - 1);
-    const curSlice = photos.slice(
-      curPhotoIndex - PAGE_SIZE * 2,
-      curPhotoIndex - PAGE_SIZE
-    );
-
+  const prevPage = (pageSize: number) => {
+    let curSlice;
+    if (curPhotoIndex - pageSize <= 0) {
+      curSlice = photos.slice(
+        photos.length - Math.floor(photos.length % pageSize),
+        photos.length
+      );
+      setPage(Math.ceil(photos.length / pageSize));
+      setCurPhotoIndex(photos.length);
+    } else {
+      const start = curPhotoIndex - pageSize * 2 < 0 ? 0 : curPhotoIndex - pageSize * 2;
+      curSlice = photos.slice(start, curPhotoIndex - pageSize);
+      setPage((prevState) => prevState - 1);
+      setCurPhotoIndex((prevState) => prevState - pageSize);
+    }
     setSlice(curSlice);
-    setCurPhotoIndex((prevState) => prevState - PAGE_SIZE);
   };
 
   const photoExists = (photo: IPhoto) => {
