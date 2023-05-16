@@ -41,13 +41,13 @@ const mockPhotos: IPhoto[] = [
 export const mockStore: IContext = {
   photos: mockPhotos,
   slice: mockSlice,
-  curPhotoIndex: 3,
+  curPhotoIndex: 0,
   setCurPhotoIndex: jest.fn(),
   setPhotos: jest.fn(),
   addPhoto: jest.fn(),
   deletePhoto: jest.fn(),
   turnPage: jest.fn(),
-  page: 2,
+  page: 1,
   setPage: jest.fn(),
   setSlice: jest.fn(),
 };

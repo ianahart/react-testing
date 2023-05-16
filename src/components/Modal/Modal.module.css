@@ -1,0 +1,25 @@
+.container {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  top: 0;
+  min-height: 100vh;
+  background-color: #000;
+}
+
+.close {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0.5rem;
+}
+
+.close svg {
+  color: #fff;
+  font-size: 3rem;
+  cursor: pointer;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+}

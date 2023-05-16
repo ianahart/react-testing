@@ -83,3 +83,9 @@
     transform: translateX(0);
   }
 }
+
+@media (max-width: 600px) {
+  .modalPhoto img {
+    width: 95%;
+  }
+}

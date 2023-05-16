@@ -5,9 +5,14 @@ import ContextProvider, { Context } from '../context/context';
 import { mockStore } from '../utils/mockStore';
 
 const renderComponent = () => {
+  const activePhotoMock = { id: '', urls: { small: '' }, alt_description: '' };
+  const handleSetModalOpenMock = jest.fn();
   const { rerender } = render(
     <Context.Provider value={mockStore}>
-      <Carousel />
+      <Carousel
+        activePhoto={activePhotoMock}
+        handleSetModalOpen={handleSetModalOpenMock}
+      />
     </Context.Provider>
   );
   return { rerender, mockStore };
@@ -54,7 +59,6 @@ describe('Carousel', () => {
     expect(mockStore.turnPage).toHaveBeenCalled();
     expect(mockStore.turnPage).toHaveBeenCalledTimes(2);
     expect(mockStore.turnPage).toHaveBeenCalledWith('next', PAGE_SIZE);
-
   });
 
   test('should call prev page function', async () => {

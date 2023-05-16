@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { Context } from '../../context/context';
-import { IContext } from '../../interfaces';
+import { IContext, IPhoto } from '../../interfaces';
 import Card from './Card';
 import { useEffectOnce } from '../../utils/UseEffectOnce';
 import {
@@ -10,7 +10,12 @@ import {
 } from 'react-icons/bs';
 import styles from './Carousel.module.css';
 
-const Carousel = () => {
+interface ICarouselProps {
+  activePhoto: IPhoto;
+  handleSetModalOpen: (open: boolean, item?: IPhoto) => void;
+}
+
+const Carousel = ({ activePhoto, handleSetModalOpen }: ICarouselProps) => {
   const PAGE_SIZE = 3;
   const { slice, turnPage, page, photos } = useContext(Context) as IContext;
   const [direction, setDirection] = useState('next');
@@ -23,7 +28,9 @@ const Carousel = () => {
   }, [photos.length]);
 
   useEffectOnce(() => {
-    turnPage('next', PAGE_SIZE, true);
+    if (activePhoto.id === '') {
+      turnPage('next', PAGE_SIZE, true);
+    }
   });
 
   const handleOnNextPage = () => {
@@ -58,7 +65,14 @@ const Carousel = () => {
       </div>
       <div data-testid="slideshow-photos" className={styles.carousel}>
         {slice.map((item) => {
-          return <Card key={item.id} item={item} direction={direction} />;
+          return (
+            <Card
+              key={item.id}
+              item={item}
+              direction={direction}
+              handleSetModalOpen={handleSetModalOpen}
+            />
+          );
         })}
       </div>
       <div data-testid="slideshow-pagination" className={styles.pagination}>
