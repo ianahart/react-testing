@@ -3,6 +3,7 @@ import user from '@testing-library/user-event';
 import Photos from '../components/PhotoList/Photos';
 import { Context } from '../context/context';
 import { IPhoto } from '../interfaces';
+import { mockStore } from '../utils/mockStore';
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -57,29 +58,10 @@ describe('Photos', () => {
 
   test('should add a photo to the users photos', async () => {
     const { searchResults, term } = returnProps();
-    const photos: IPhoto[] = [];
-    const slice: IPhoto[] = [];
-    const curPhotoIndex = 0;
-    const setPhotos = jest.fn();
-    const addPhoto = jest.fn();
     const mockRemoveSearchResult = jest.fn();
-    const deletePhoto = jest.fn();
-    const turnPage = jest.fn();
-    const page = 1;
 
     render(
-      <Context.Provider
-        value={{
-          photos,
-          setPhotos,
-          addPhoto,
-          deletePhoto,
-          turnPage,
-          page,
-          slice,
-          curPhotoIndex,
-        }}
-      >
+      <Context.Provider value={mockStore}>
         <Photos
           action="add"
           data={searchResults}
@@ -90,10 +72,13 @@ describe('Photos', () => {
 
     const myPhotos = screen.getAllByLabelText('photo');
     const firstPhoto = within(myPhotos[0]).getByAltText('photo 1');
-    await user.click(firstPhoto);
+    await user.hover(firstPhoto);
+    const button = screen.getByRole('button', { name: /click to add/i });
 
-    expect(addPhoto).toHaveBeenCalled();
-    expect(addPhoto).toHaveBeenCalledWith({
+    await user.click(button);
+
+    expect(mockStore.addPhoto).toHaveBeenCalled();
+    expect(mockStore.addPhoto).toHaveBeenCalledWith({
       id: '1',
       alt_description: 'photo 1',
       urls: { small: 'https://test.com' },
@@ -102,29 +87,10 @@ describe('Photos', () => {
 
   test('should remove search result when it is added as a photo', async () => {
     const { searchResults, term } = returnProps();
-    const photos: IPhoto[] = [];
-    const slice: IPhoto[] = [];
-    const curPhotoIndex = 0;
-    const setPhotos = jest.fn();
-    const addPhoto = jest.fn();
     const mockRemoveSearchResult = jest.fn();
-    const deletePhoto = jest.fn();
-    const turnPage = jest.fn();
-    const page = 1;
 
     render(
-      <Context.Provider
-        value={{
-          photos,
-          setPhotos,
-          addPhoto,
-          deletePhoto,
-          turnPage,
-          page,
-          slice,
-          curPhotoIndex,
-        }}
-      >
+      <Context.Provider value={mockStore}>
         <Photos
           action="add"
           data={searchResults}
@@ -135,7 +101,10 @@ describe('Photos', () => {
 
     const myPhotos = screen.getAllByLabelText('photo');
     const firstPhoto = within(myPhotos[0]).getByAltText('photo 1');
-    await user.click(firstPhoto);
+    await user.hover(firstPhoto);
+    const button = screen.getByRole('button', { name: /click to add/i });
+
+    await user.click(button);
 
     expect(mockRemoveSearchResult).toHaveBeenCalled();
     expect(mockRemoveSearchResult).toHaveBeenCalledWith('1');
@@ -143,29 +112,10 @@ describe('Photos', () => {
 
   test("should remove photo from user's photo in context", async () => {
     const { searchResults } = returnProps();
-    const photos: IPhoto[] = [];
-    const slice: IPhoto[] = [];
-    const curPhotoIndex = 0;
-    const setPhotos = jest.fn();
-    const addPhoto = jest.fn();
     const mockRemoveSearchResult = jest.fn();
-    const deletePhoto = jest.fn();
-    const turnPage = jest.fn();
-    const page = 1;
 
     render(
-      <Context.Provider
-        value={{
-          photos,
-          setPhotos,
-          addPhoto,
-          deletePhoto,
-          turnPage,
-          page,
-          slice,
-          curPhotoIndex,
-        }}
-      >
+      <Context.Provider value={mockStore}>
         <Photos
           action="remove"
           data={searchResults}
@@ -176,9 +126,12 @@ describe('Photos', () => {
 
     const myPhotos = screen.getAllByLabelText('photo');
     const firstPhoto = within(myPhotos[0]).getByAltText('photo 1');
-    await user.click(firstPhoto);
+    await user.hover(firstPhoto);
+    const button = screen.getByRole('button', { name: /click to remove/i });
 
-    expect(deletePhoto).toHaveBeenCalled();
-    expect(deletePhoto).toHaveBeenCalledWith('1');
+    await user.click(button);
+
+    expect(mockStore.deletePhoto).toHaveBeenCalled();
+    expect(mockStore.deletePhoto).toHaveBeenCalledWith('1');
   });
 });

@@ -47,6 +47,7 @@ export const mockStore: IContext = {
   addPhoto: jest.fn(),
   deletePhoto: jest.fn(),
   turnPage: jest.fn(),
+  updatePhoto: jest.fn(),
   page: 1,
   setPage: jest.fn(),
   setSlice: jest.fn(),
