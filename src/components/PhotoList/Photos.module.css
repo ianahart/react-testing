@@ -2,5 +2,12 @@
   padding: 0.25rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(3, 300px);
   gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }

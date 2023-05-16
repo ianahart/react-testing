@@ -16,6 +16,8 @@ export interface IContext {
   photos: IPhoto[];
   slice: IPhoto[];
   curPhotoIndex: number;
+  page: number;
+  updatePhoto: (value: string, id: string) => void;
   setPhotos: (photo: IPhoto[]) => void;
   addPhoto: (photo: IPhoto) => void;
   deletePhoto: (id: string) => void;
@@ -23,5 +25,4 @@ export interface IContext {
   setPage: (page: number) => void;
   setCurPhotoIndex: (curIndex: number) => void;
   setSlice: (slice: IPhoto[]) => void;
-  page: number;
 }

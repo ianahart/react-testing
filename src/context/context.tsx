@@ -14,6 +14,21 @@ const ContextProvider = ({ children }: IChildren) => {
   const [curPhotoIndex, setCurPhotoIndex] = useState(0);
   const [page, setPage] = useState(0);
 
+  useEffect(() => {
+    localStorage.setItem('photos', JSON.stringify(photos));
+  }, [photos]);
+
+  const updatePhoto = (value: string, id: string) => {
+    const updatedPhotos = photos.map((photo) => {
+      if (photo.id === id) {
+        photo.alt_description = value;
+      }
+      return photo;
+    });
+
+    setPhotos(updatedPhotos);
+  };
+
   const turnPage = (action: string, pageSize: number, initial?: boolean) => {
     action === 'next' ? nextPage(pageSize, initial) : prevPage(pageSize);
   };
@@ -60,13 +75,11 @@ const ContextProvider = ({ children }: IChildren) => {
     const updatedSlice = slice.filter((v) => v.id !== id);
     setSlice(updatedSlice);
     setPhotos(updatedPhotos);
-    localStorage.setItem('photos', JSON.stringify(updatedPhotos));
   };
 
   const addPhoto = (photo: IPhoto) => {
     if (photoExists(photo)) return;
     setPhotos((prevState) => [...prevState, photo]);
-    localStorage.setItem('photos', JSON.stringify([...photos, photo]));
   };
 
   return (
@@ -83,6 +96,7 @@ const ContextProvider = ({ children }: IChildren) => {
         setSlice,
         setPage,
         setCurPhotoIndex,
+        updatePhoto,
       }}
     >
       {children}

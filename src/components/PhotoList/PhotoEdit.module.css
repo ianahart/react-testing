@@ -1,0 +1,21 @@
+.input {
+  border-radius: 8px;
+  height: 35px;
+  border: none;
+  border: 1px solid;
+  border-color: var(--color-light-gray);
+}
+
+.button {
+  border-radius: 8px;
+  border: none;
+  height: 35px;
+  transition: all 0.25s ease-in-out;
+  cursor: pointer;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-around;
+  padding: 0.25rem 0;
+}
