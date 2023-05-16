@@ -3,6 +3,26 @@ import user from '@testing-library/user-event';
 import Photo from '../components/PhotoList/Photo';
 
 describe('Photo', () => {
+  test('should show edit form when description is clicked', async () => {
+    const item = {
+      id: '1',
+      urls: { small: 'https://www.test.com' },
+      alt_description: 'some photo',
+    };
+    const mockHandleOnClick = jest.fn();
+    render(<Photo action="" item={item} handleOnClick={mockHandleOnClick} />);
+
+    const altDescription = screen.getByText(item.alt_description);
+    await user.click(altDescription);
+
+    const input = await screen.findByRole('textbox');
+    const saveButton = await screen.findByRole('button', { name: /save/i });
+    const cancelButton = await screen.findByRole('button', { name: /cancel/i });
+
+    expect(input).toBeInTheDocument();
+    expect(saveButton).toBeInTheDocument();
+    expect(cancelButton).toBeInTheDocument();
+  });
   test('should render a photo on the screen with a description', () => {
     const item = {
       id: '1',
@@ -46,6 +66,9 @@ describe('Photo', () => {
     const mockHandleOnClick = jest.fn();
 
     render(<Photo action="" item={item} handleOnClick={mockHandleOnClick} />);
+
+    const photoContainer = screen.getByLabelText('photo');
+    await user.hover(photoContainer);
 
     const button = screen.getByRole('button');
 
